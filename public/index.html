@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bare Staff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="home-body">
+  <div class="staves" aria-hidden="true"></div>
+  <main class="home">
+    <p class="brand">Bare Staff</p>
+    <h1>Drop the chrome. Keep the tab.</h1>
+    <p class="lede">Paste a Songsterr URL. Get a temporary page with only the sheet.</p>
+    <form class="extract" action="/extract" method="post">
+      <label class="url-label" for="url">Songsterr URL</label>
+      <div class="row">
+        <input
+          id="url"
+          name="url"
+          type="url"
+          required
+          spellcheck="false"
+          autocomplete="url"
+          placeholder="https://www.songsterr.com/a/wsa/…"
+        >
+        <button type="submit">Extract</button>
+      </div>
+      <p class="error" hidden></p>
+    </form>
+    <div id="history" hidden></div>
+  </main>
+  <script src="/history.js"></script>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const message = params.get("error");
+    if (message) {
+      const el = document.querySelector(".error");
+      el.hidden = false;
+      el.textContent = message;
+    }
+    const input = document.getElementById("url");
+    input.addEventListener("input", () => {
+      const el = document.querySelector(".error");
+      el.hidden = true;
+    });
+  </script>
+</body>
+</html>
